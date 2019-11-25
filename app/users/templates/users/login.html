@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+  <h2 class="text-center display-4">Login To Flask Blog</h2>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST">
+            {{form.hidden_tag()}}
+            <div class="form-group">
+              {{form.email.label}}
+              {% if form.email.errors %}
+              {{form.email(class='form-control is-invalid', required=False)}}
+              <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{form.email(class='form-control', required=False)}}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{form.password.label}}
+              {% if form.password.errors %}
+              {{form.password(class='form-control is-invalid', required=False)}}
+              <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{form.password(class='form-control', required=False)}}
+              {% endif %}
+            </div>
+            <div class="form-group form-check">
+              {{form.remember(class='form-check-input')}}
+              {{form.remember.label(class='form-check-label')}}
+            </div>
+            <div class="text-center">
+              {{form.submit(class='btn btn-success')}}
+              <span class="text-muted ml-2"><a href="#">Forgot Password?</a></span>
+            </div>
+            <div class="text-center mt-4">
+              <p>New to Flask Blog? <a href="{{url_for('users.register')}}" class="btn btn-sm btn-info">Register</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
