@@ -25,12 +25,18 @@
       </li>
     </ul>
     <ul class="navbar-nav my-2 my-lg-0">
+      {% if current_user.is_authenticated %}
+      <li class="nav-item">
+        <a href="{{url_for('users.logout')}}" class="nav-link">Logout</a>
+      </li>
+      {% else %}
       <li class="nav-item">
         <a href="{{url_for('users.login')}}" class="nav-link">Login</a>
       </li>
       <li class="nav-item">
         <a href="{{url_for('users.register')}}" class="nav-link">Register</a>
       </li>
+      {% endif %}
     </ul>
   </nav>
   <div class="container">
