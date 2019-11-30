@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from app import db
 from app.models import User
-from app.users.forms import LoginForm, RegisterForm
+from app.users.forms import LoginForm, RegisterForm, UpdateForm
 from flask_login import login_user, login_required, logout_user, current_user
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates/users')
@@ -54,3 +54,20 @@ def register():
         return redirect(url_for('users.login'))
 
     return render_template('register.html', form=form, title='Register')
+
+@users_blueprint.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdateForm()
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Account detail updated.", "success")
+        return redirect(url_for('users.account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    return render_template('account.html', title='Account', image_file=image_file, form=form)
