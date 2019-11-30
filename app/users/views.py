@@ -1,5 +1,7 @@
+import os
+import secrets
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from app import db
+from app import app, db
 from app.models import User
 from app.users.forms import LoginForm, RegisterForm, UpdateForm
 from flask_login import login_user, login_required, logout_user, current_user
@@ -55,12 +57,23 @@ def register():
 
     return render_template('register.html', form=form, title='Register')
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/img', picture_fn)
+    form_picture.save(picture_path)
+    return picture_fn
+
 @users_blueprint.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateForm()
 
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
