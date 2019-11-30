@@ -1,5 +1,6 @@
 import os
 import secrets
+from PIL import Image
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from app import app, db
 from app.models import User
@@ -62,7 +63,13 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/img', picture_fn)
-    form_picture.save(picture_path)
+    # form_picture.save(picture_path)
+
+    output_size = (200, 200)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
     return picture_fn
 
 @users_blueprint.route('/account', methods=['GET', 'POST'])
