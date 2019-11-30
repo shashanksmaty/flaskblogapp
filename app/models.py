@@ -42,7 +42,6 @@ class Post(db.Model):
 
     def __init__(self, title, content, user_id):
         self.title = title
-        self.date_posted = date_posted
         self.content = content
         self.user_id = user_id
 

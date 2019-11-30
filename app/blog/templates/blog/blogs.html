@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+  <h3 class="display-4 text-center">Flask Blog</h3>
+  {% for post in posts %}
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="blog-img-wrapper">
+                <img src="../../../static/img/default.jpg" alt="" class="img-fluid blog-img">
+              </div>
+            </div>
+            <div class="col-md-9">
+              <h2>{{post.title}}</h2>
+              <p class="lead text-capitalize">{{post.users.username}}</p>
+              <p class="text-muted">{{post.date_posted.strftime('%d %B, %Y')}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

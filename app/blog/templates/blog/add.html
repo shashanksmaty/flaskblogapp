@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+  <h2 class="display-4 text-center">Add New Post</h2>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST">
+            {{form.hidden_tag()}}
+            <div class="form-group">
+              {{form.title.label}}
+              {% if form.title.errors %}
+              {{form.title(class='form-control is-invalid', required=False)}}
+              <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{form.title(class='form-control', required=False)}}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{form.content.label}}
+              {% if form.content.errors %}
+              {{form.content(class='form-control is-invalid', required=False, rows=5)}}
+              <div class="invalid-feedback">
+                {% for error in form.content.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{form.content(class='form-control', required=False, rows=5)}}
+              {% endif %}
+            </div>
+            <div class="text-center">
+              {{form.submit(class='btn btn-success')}}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

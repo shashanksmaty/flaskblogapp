@@ -24,5 +24,7 @@ login_manager.login_message_category = 'info'
 
 # Import Blueprints
 from app.users.views import users_blueprint
+from app.blog.views import blog_blueprint
 
 app.register_blueprint(users_blueprint, url_prefix='/')
+app.register_blueprint(blog_blueprint, url_prefix='/blog')

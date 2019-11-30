@@ -1,0 +1,10 @@
+.blog-img-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 150px;
+}
+
+.blog-img {
+  width: 100%;
+  transform: scale(1.2, 1.2);
+}
