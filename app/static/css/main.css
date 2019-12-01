@@ -8,3 +8,7 @@
   width: 100%;
   transform: scale(1.2, 1.2);
 }
+
+.img-thumb-small {
+  width: 30px
+}

@@ -15,7 +15,7 @@
               </div>
             </div>
             <div class="col-md-9">
-              <h2>{{post.title}}</h2>
+              <h2><a href="{{url_for('blog.post', post_id=post.id)}}">{{post.title}}</a></h2>
               <p class="lead text-capitalize">{{post.users.username}}</p>
               <p class="text-muted">{{post.date_posted.strftime('%d %B, %Y')}}</p>
             </div>

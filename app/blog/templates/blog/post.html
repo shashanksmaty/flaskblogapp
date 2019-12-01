@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="text-muted mt-2 mb-2 ml-1">{{post.date_posted.strftime('%d %B, %Y')}}</div>
+      <h2 class="display-4 mb-4">{{post.title}}</h2>
+      <p class="ml-1 d-flex align-items-center">
+        <img src="{{url_for('static', filename='img/' + post.users.image_file)}}" alt="" class="img-thumb-small">
+        <span class="lead text-capitalize ml-2">{{post.users.username}}</span>
+      </p>
+      <p class="text-justify">{{post.content}}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
