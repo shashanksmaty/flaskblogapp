@@ -3,7 +3,7 @@
 {% block content %}
 <div class="col-md-12">
   <h3 class="display-4 text-center">Flask Blog</h3>
-  {% for post in posts %}
+  {% for post in posts.items %}
   <div class="row justify-content-center mt-4">
     <div class="col-md-8">
       <div class="card">
@@ -25,5 +25,21 @@
     </div>
   </div>
   {% endfor %}
+  <!-- Pagination -->
+  <nav class="mt-5">
+    <ul class="pagination justify-content-center">
+      {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+      {% if posts.page == page_num %}
+      <li class="page-item active"><a href="{{url_for('blog.blog', page=page_num)}}" class="page-link">{{page_num}}</a></li>
+      {% else %}
+      <li class="page-item"><a href="{{url_for('blog.blog', page=page_num)}}" class="page-link">{{page_num}}</a></li>
+      {% endif %}
+      {% else %}
+      <li class="page-item"><a href="#" class="page-link">...</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
 </div>
 {% endblock %}
