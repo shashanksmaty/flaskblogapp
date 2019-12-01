@@ -68,3 +68,14 @@ def update(post_id):
         form.content.data = post.content
 
     return render_template('add.html', title='Update Post', form=form, header="Update Your Post", post=post)
+
+@blog_blueprint.route('/post/<post_id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.users != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post has been deleted successfully', 'success')
+    return redirect(url_for('blog.blog'))
