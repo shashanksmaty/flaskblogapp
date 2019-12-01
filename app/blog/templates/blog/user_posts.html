@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="col-md-12">
-  <h3 class="display-4 text-center">Flask Blog</h3>
+  <h3 class="display-4 text-center">Posts By <span class="text-capitalize">{{user.username}}</span></h3>
   {% for post in posts.items %}
   <div class="row justify-content-center mt-4">
     <div class="col-md-8">
@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-9">
               <h2><a href="{{url_for('blog.post', post_id=post.id)}}" class="link-title">{{post.title}}</a></h2>
-              <p class="lead text-capitalize"><a href="{{url_for('blog.userPosts', username=post.users.username)}}" class="link-username">{{post.users.username}}</a></p>
+              <p class="lead text-capitalize">{{post.users.username}}</p>
               <p class="text-muted">{{post.date_posted.strftime('%d %B, %Y')}}</p>
             </div>
           </div>

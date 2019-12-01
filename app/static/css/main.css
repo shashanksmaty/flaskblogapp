@@ -12,3 +12,9 @@
 .img-thumb-small {
   width: 30px
 }
+
+.link-title,
+.link-username {
+  text-decoration: none;
+  color: #212529;
+}

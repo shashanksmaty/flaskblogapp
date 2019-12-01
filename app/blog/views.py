@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, abort, request
 from flask_login import login_required, current_user
 from app.blog.forms import PostForm
-from app.models import Post
+from app.models import Post, User
 from app import db
 
 posts = [
@@ -21,8 +21,15 @@ def blog():
     # blog_posts = Post.query.all()
     # Pagination
     page = request.args.get('page', 1, type=int)
-    blog_posts = Post.query.paginate(page=page, per_page=5)
+    blog_posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('blogs.html', title='Blogs', posts=blog_posts)
+
+@blog_blueprint.route('/<username>')
+def userPosts(username):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(users=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('user_posts.html', title=username, posts=posts, user=user)
 
 @blog_blueprint.route('/new', methods=['GET', 'POST'])
 @login_required
