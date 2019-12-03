@@ -41,3 +41,16 @@ class UpdateForm(FlaskForm):
         if username.data != current_user.username:
             if User.query.filter_by(username=username.data).first():
                 raise ValidationError('Username is not available.')
+
+class ResetRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Send Verification Email')
+
+    def validate_email(self, email):
+        if User.query.filter_by(email=email.data).first() is None:
+            raise ValidationError('There is no account with this email. Please register first.')
+
+class PasswordResetForm(FlaskForm):
+    password = PasswordField('New Password', Validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')

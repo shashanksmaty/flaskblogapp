@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+  <h2>Reset Your Password</h2>
+  <p>Please enter your email address that you use to login. We will send an email to reset your password.</p>
+  <div class="row">
+    <div class="col-md-6">
+      <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="form-group">
+          {{form.email.label}}
+          {% if form.email.errors %}
+          {{form.email(class='form-control is-invalid', required=False)}}
+          <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+            <span>{{error}}</span>
+            {% endfor %}
+          </div>
+          {% else %}
+          {{form.email(class='form-control', required=False)}}
+          {% endif %}
+        </div>
+        <div>
+          {{form.submit(class='btn btn-success')}}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
